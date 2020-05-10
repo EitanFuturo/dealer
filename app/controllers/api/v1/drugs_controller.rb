@@ -1,11 +1,12 @@
 module Api
   module V1 
     class DrugsController < ApplicationController
+      before_action :authorize_access_request!, except: [:show, :index]  
       before_action :set_drug, only: [:show, :update, :destroy]
-
+      
       # GET /drugs
       def index
-        @drugs = Drug.all
+        @drugs = current_user.drugs.all
 
         render json: @drugs
       end
@@ -17,7 +18,7 @@ module Api
 
       # POST /drugs
       def create
-        @drug = Drug.new(drug_params)
+        @drug = current_user.drugs.build(take_params)
 
         if @drug.save
           render json: @drug, status: :created, location: @drug
@@ -43,7 +44,7 @@ module Api
       private
         # Use callbacks to share common setup or constraints between actions.
         def set_drug
-          @drug = Drug.find(params[:id])
+          @drug = current_user.drugs.find(params[:id])
         end
 
         # Only allow a trusted parameter "white list" through.

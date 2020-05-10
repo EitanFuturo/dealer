@@ -1,1 +1,1 @@
-JWTSessions.encription_key = 'yamani'
+#JWTSessions.encription_key = 'yamani'

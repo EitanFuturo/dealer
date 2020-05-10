@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::API
-  include JWTSessopms::Authorization
+  include JWTSessions::Authorization
 
-  rescue_from JWTSessions::Errors.unauthorized, with: :not_authorized 
+  rescue_from JWTSessions::Errors::Unauthorized, with: :not_authorized 
 
   private
 
