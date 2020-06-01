@@ -1,6 +1,8 @@
 class SignupController < ApplicationController
 
   def create
+    byebug
+    params.delete(:signup)
     user = User.new(user_params)
 
     if user.save
@@ -15,11 +17,11 @@ class SignupController < ApplicationController
 
       render json: { csrf: tokens[:csrf] }
     else
-      render json: { error: user.errors.full_messages.join(' ') }, status: :unprocessable_entijy
+      render json: { error: user.errors.full_messages.join(' ') }, status: :unprocessable_entity
     end
   end
 
   def user_params
-    params.permit(:name, :last_name, :password, :password_confirmation)
+    params.permit(:email, :name, :last_name, :password, :password_confirmation)
   end
 end
