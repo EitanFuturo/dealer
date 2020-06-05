@@ -1,1 +1,1 @@
-JWTSessions.encryption_key = 'yamani'
+JWTSessions.encryption_key = 'secret'

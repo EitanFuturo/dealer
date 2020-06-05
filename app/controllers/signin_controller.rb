@@ -23,13 +23,13 @@ class SigninController < ApplicationController
   def destroy
     session = JWTSessions::Session.new(payload: payload)
     session.flush_by_access_payoload
-    render json: :  :ok
+    render json: :ok
   end
 
   private
 
   def not_found
-    render json { error: "Cannot find email/password combination."}, status: :not_found
+    render json: { error: "Cannot find email/password combination."}, status: :not_found
   end
   
 end

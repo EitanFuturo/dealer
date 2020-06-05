@@ -2,7 +2,7 @@ class RefreshController < ApplicationController
   before_action :authorize_refresh_by_access_request!
 
   def create
-    session = JWT::Sessions.new(payload: claimless_payload, refresh_by_access_allowed:_true)
+    session = JWT::Sessions.new(payload: claimless_payload, refresh_by_access_allowed: true)
     tokens = session.refresh_by_access_allowed do
       raise JWTSession::Errors::Unauthorized, "Something's not right here!"
     end
@@ -11,7 +11,7 @@ class RefreshController < ApplicationController
                         value: tokens[:access],
                         httponly: true,
                         secure: Rails.env_production?)
-                       
+
     render json: { csrf: tokens[:csrf] }
-  end 
+  end
 end
